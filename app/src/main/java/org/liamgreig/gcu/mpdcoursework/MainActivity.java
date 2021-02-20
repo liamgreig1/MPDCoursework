@@ -18,7 +18,6 @@ import java.util.LinkedList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView rawDataDisplay;
-    private Button startButton;
     private String result;
     private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
         rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
-        startButton = (Button) findViewById(R.id.startButton);
+        Button startButton = (Button) findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
         Log.e("MyTag", "after startButton");
         // More Code goes here
