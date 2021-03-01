@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MPDCoursework</string>
+    <string name="liam_greig_s1635449">Liam Greig - S1635449</string>
+    <string name="press_to_get_data">Press to get data</string>
+    <string name="contains_british_geological_survey_materials_nerc_2019">Contains British Geological Survey materials ©NERC 2019</string>
+    <string name="raw_data_is_displayed_here">Raw Data is Displayed here</string>
+    <string name="info">Info</string>
 </resources>

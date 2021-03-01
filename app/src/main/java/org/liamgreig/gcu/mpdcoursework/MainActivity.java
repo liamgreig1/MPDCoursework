@@ -1,6 +1,8 @@
 package org.liamgreig.gcu.mpdcoursework;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,15 +15,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView rawDataDisplay;
+    private RecyclerView rvEarthquake;
+    private EarthquakeAdapter adapter;
     private String result;
     private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-    LinkedList<EarthquakeClass> earthquakeList = null;
+    ArrayList<EarthquakeClass> earthquakeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,22 +36,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
         rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
-        Button startButton = (Button) findViewById(R.id.startButton);
+
+        Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
         Log.e("MyTag", "after startButton");
+        EarthquakeClass anQuake = new EarthquakeClass("Test","Test","Test","Test","Test","Test","Test","Test","Test");
+        earthquakeList.add(anQuake);
+        startProgress();
+        rvEarthquake = findViewById(R.id.rvEarthquake);
+        rvEarthquake.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new EarthquakeAdapter(earthquakeList);
+        rvEarthquake.setAdapter(adapter);
         // More Code goes here
     }
 
     @Override
     public void onClick(View v) {
         Log.e("MyTag", "in onClick");
-        startProgress();
+
         Log.e("MyTag", "after startProgress");
     }
 
     public void startProgress() {
         // Run network access on a separate thread;
         new Thread(new Task(urlSource)).start();
+
+
     } //
 
     // Need separate thread to access the internet resource over network

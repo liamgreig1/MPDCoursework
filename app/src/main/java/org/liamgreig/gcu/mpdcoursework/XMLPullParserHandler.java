@@ -8,12 +8,13 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class XMLPullParserHandler {
-    public static LinkedList<EarthquakeClass> parseData(String dataToParse) {
+    public static ArrayList<EarthquakeClass> parseData(String dataToParse) {
         EarthquakeClass earthquake = null;
-        LinkedList<EarthquakeClass> earthquakeList = null;
+        ArrayList<EarthquakeClass> earthquakeList = null;
 
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -25,7 +26,7 @@ public class XMLPullParserHandler {
                 if (eventType == XmlPullParser.START_TAG) {
                     if (xpp.getName().equalsIgnoreCase("rss")) {
                         Log.e("MyTag", "Start RSS Tag");
-                        earthquakeList = new LinkedList<>();
+                        earthquakeList = new ArrayList<>();
                     } else if (xpp.getName().equalsIgnoreCase("channel")) {
                         Log.e("MyTag", "Channel start tag found");
                     } else if (xpp.getName().equalsIgnoreCase("item")) {

@@ -9,6 +9,8 @@ public class EarthquakeClass {
     private String category;
     private String geoLat;
     private String geoLong;
+    private String strength;
+    private String location;
 
     public EarthquakeClass(){
         title = "";
@@ -18,9 +20,11 @@ public class EarthquakeClass {
         category = "";
         geoLat = "";
         geoLong = "";
+        strength = "";
+        location = "";
     }
 
-    public EarthquakeClass(String aTitle, String aDescription, String aLink, String aPubDate, String aCategory, String aGeoLat, String aGeoLong){
+    public EarthquakeClass(String aTitle, String aDescription, String aLink, String aPubDate, String aCategory, String aGeoLat, String aGeoLong, String aStrength, String aLocation){
         title = aTitle;
         description = aDescription;
         link = aLink;
@@ -28,6 +32,24 @@ public class EarthquakeClass {
         category = aCategory;
         geoLat = aGeoLat;
         geoLong = aGeoLong;
+        strength = aStrength;
+        location = aLocation;
+    }
+
+    public String getStrength() {
+        return strength;
+    }
+
+    public void setStrength(String strength) {
+        this.strength = strength;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getTitle() {
@@ -45,12 +67,26 @@ public class EarthquakeClass {
     public void setDescription(String description) {
         this.description = description;
         String[] descriptionArray = this.description.split("\\s*;\\s*");
+
+        //To get Lat and Long
         String longlat = descriptionArray[2];
         String [] longlatArray = longlat.split("\\s*:\\s*");
         String longlatNum = longlatArray[1];
         String [] longlatNumArray = longlatNum.split("\\s*,\\s*");
         setGeoLat(longlatNumArray[0]);
         setGeoLong(longlatNumArray[1]);
+
+        //To get strength
+        String mag = descriptionArray[4];
+        String [] magArray = mag.split("\\s*:\\s*");
+        String strength = magArray[1];
+        setStrength(strength);
+
+        //To get Location Name
+        String loc = descriptionArray[1];
+        String[] locArray = loc.split("\\s*:\\s*");
+        String locName = locArray[1];
+        setLocation(locName);
     }
 
     public String getLink() {
@@ -96,13 +132,15 @@ public class EarthquakeClass {
     @Override
     public String toString() {
         return "EarthquakeClass{" + '\n' +
-                "title='" + title + '\n' +
-                "description='" + description + '\n' +
-                "link='" + link + '\n' +
-                "pubDate='" + pubDate + '\n' +
-                "category='" + category + '\n' +
-                "geoLat='" + geoLat + '\n' +
-                "geoLong='" + geoLong + '\n' +
+                "title=" + title + '\n' +
+                "description=" + description + '\n' +
+                "link=" + link + '\n' +
+                "pubDate=" + pubDate + '\n' +
+                "category=" + category + '\n' +
+                "geoLat=" + geoLat + '\n' +
+                "geoLong=" + geoLong + '\n' +
+                "strength=" + strength + '\n' +
+                "location=" + location + '\n' +
                 '}' + '\n';
     }
 }
