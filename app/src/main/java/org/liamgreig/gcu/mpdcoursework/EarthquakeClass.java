@@ -49,6 +49,9 @@ public class EarthquakeClass {
     }
 
     public void setLocation(String location) {
+
+        if(location.length() > 10)
+
         this.location = location;
     }
 

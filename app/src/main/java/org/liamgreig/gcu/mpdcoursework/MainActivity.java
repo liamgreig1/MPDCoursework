@@ -35,25 +35,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
-        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
+//        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
 
         Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
         Log.e("MyTag", "after startButton");
-        EarthquakeClass anQuake = new EarthquakeClass("Test","Test","Test","Test","Test","Test","Test","Test","Test");
-        earthquakeList.add(anQuake);
-        startProgress();
-        rvEarthquake = findViewById(R.id.rvEarthquake);
-        rvEarthquake.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new EarthquakeAdapter(earthquakeList);
-        rvEarthquake.setAdapter(adapter);
+//        EarthquakeClass anQuake = new EarthquakeClass("Test","Test","Test","Test","Test","Test","Test","Test","Test");
+//        earthquakeList.add(anQuake);
+
+
         // More Code goes here
     }
 
     @Override
     public void onClick(View v) {
         Log.e("MyTag", "in onClick");
+        startProgress();
 
+        rvEarthquake = findViewById(R.id.rvEarthquake);
+        rvEarthquake.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new EarthquakeAdapter(earthquakeList);
+        rvEarthquake.setAdapter(adapter);
         Log.e("MyTag", "after startProgress");
     }
 
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             MainActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     Log.d("UI thread", "I am the UI thread");
-                    rawDataDisplay.setText(earthquakeList.toString());
+//                    rawDataDisplay.setText(earthquakeList.toString());
                 }
             });
         }

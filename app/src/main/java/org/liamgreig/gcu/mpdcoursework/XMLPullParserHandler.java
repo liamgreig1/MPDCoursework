@@ -25,40 +25,40 @@ public class XMLPullParserHandler {
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     if (xpp.getName().equalsIgnoreCase("rss")) {
-                        Log.e("MyTag", "Start RSS Tag");
+//                        Log.e("MyTag", "Start RSS Tag");
                         earthquakeList = new ArrayList<>();
                     } else if (xpp.getName().equalsIgnoreCase("channel")) {
-                        Log.e("MyTag", "Channel start tag found");
+//                        Log.e("MyTag", "Channel start tag found");
                     } else if (xpp.getName().equalsIgnoreCase("item")) {
                         earthquake = new EarthquakeClass();
-                        Log.e("MyTag", "Item start tag found");
+//                        Log.e("MyTag", "Item start tag found");
                     } else if (xpp.getName().equalsIgnoreCase("title")) {
                         String temp = xpp.nextText();
-                        Log.e("MyTag", "Title is " + temp);
+//                        Log.e("MyTag", "Title is " + temp);
                         if (earthquake != null) {
                             earthquake.setTitle(temp);
                         }
                     } else if (xpp.getName().equalsIgnoreCase("description")) {
                         String temp = xpp.nextText();
-                        Log.e("MyTag", "Description is " + temp);
+//                        Log.e("MyTag", "Description is " + temp);
                         if (earthquake != null) {
                             earthquake.setDescription(temp);
                         }
                     } else if (xpp.getName().equalsIgnoreCase("link")) {
                         String temp = xpp.nextText();
-                        Log.e("MyTag", "Link is " + temp);
+//                        Log.e("MyTag", "Link is " + temp);
                         if (earthquake != null) {
                             earthquake.setLink(temp);
                         }
                     } else if (xpp.getName().equalsIgnoreCase("pubdate")) {
                         String temp = xpp.nextText();
-                        Log.e("MyTag", "Publication Date is " + temp);
+//                        Log.e("MyTag", "Publication Date is " + temp);
                         if (earthquake != null) {
                             earthquake.setPubDate(temp);
                         }
                     } else if (xpp.getName().equalsIgnoreCase("category")) {
                         String temp = xpp.nextText();
-                        Log.e("MyTag", "Category is " + temp);
+//                        Log.e("MyTag", "Category is " + temp);
                         if (earthquake != null) {
                             earthquake.setCategory(temp);
                         }
@@ -66,15 +66,15 @@ public class XMLPullParserHandler {
                 } else if (eventType == XmlPullParser.END_TAG) {
                     if (xpp.getName().equalsIgnoreCase("item")) {
                         if (earthquake != null) {
-                            Log.e("MyTag", "Item is " + earthquake.toString());
+//                            Log.e("MyTag", "Item is " + earthquake.toString());
                             earthquakeList.add(earthquake);
                         }
                     } else if (xpp.getName().equalsIgnoreCase("channel")) {
                         int size;
                         size = earthquakeList.size();
-                        Log.e("MyTag", "Channel size is " + size);
+//                        Log.e("MyTag", "Channel size is " + size);
                     } else if (xpp.getName().equalsIgnoreCase("rss")) {
-                        Log.e("MyTag", "End RSS Tag");
+//                        Log.e("MyTag", "End RSS Tag");
                     }
                 }
 
@@ -87,7 +87,7 @@ public class XMLPullParserHandler {
             Log.e("MyTag", "IO error during parsing");
         }
 
-        Log.e("MyTag", "End document");
+//        Log.e("MyTag", "End document");
 
         return earthquakeList;
     }
