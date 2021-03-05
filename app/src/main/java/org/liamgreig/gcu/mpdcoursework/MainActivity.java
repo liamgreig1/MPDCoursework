@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
         rvEarthquake = findViewById(R.id.rvEarthquake);
-        Button startButton = findViewById(R.id.startButton);
-        startButton.setOnClickListener(this);
 
         periodicUpdate.run();
     }
