@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,15 +29,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener, EarthquakeAdapter.AdapterClickListener {
 
     private RecyclerView rvEarthquake;
     private EarthquakeAdapter adapter;
     private String result;
-    private String url1 = "";
-    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+    private final String url1 = "";
+    private final String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     ArrayList<EarthquakeClass> earthquakeList = new ArrayList<>();
     Context mainContext = this;
+    EarthquakeAdapter.AdapterClickListener adapterContext = this;
 
     Handler handler = new Handler();
 
@@ -48,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
         rvEarthquake = findViewById(R.id.rvEarthquake);
-
         periodicUpdate.run();
     }
 
@@ -57,11 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Log.e("MyTag", "in onClick");
-
         Log.e("MyTag", "after startProgress");
     }
 
-    private Runnable periodicUpdate = new Runnable () {
+    private final Runnable periodicUpdate = new Runnable () {
         public void run() {
             // scheduled another events to be in 1 Hour
             AsyncTask<Void, Integer, Void> runTask = new GetXMLAsyncTask();
@@ -70,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             runTask.execute();
         }
     };
+
+    @Override
+    public void onAdapterClickListener(View view, int position) {
+        EarthquakeClass earthquakeClass = earthquakeList.get(position);
+        Toast.makeText(MainActivity.this, "You Clicked: " + earthquakeClass.getLocation(), Toast.LENGTH_SHORT).show();
+    }
 
 
     private class GetXMLAsyncTask extends AsyncTask<Void, Integer, Void>
@@ -97,9 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         result = inputLine;
                     }
-
-//                    Log.e("MyTag", inputLine);
-
                 }
                 in.close();
 
@@ -116,9 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(result);
             Toast.makeText(MainActivity.this,"Invoke onPostExecute()", Toast.LENGTH_SHORT).show();
             rvEarthquake.setLayoutManager(new LinearLayoutManager(mainContext));
-            adapter = new EarthquakeAdapter(earthquakeList);
+            adapter = new EarthquakeAdapter(earthquakeList,adapterContext);
             rvEarthquake.setAdapter(adapter);
-
         }
     }
 

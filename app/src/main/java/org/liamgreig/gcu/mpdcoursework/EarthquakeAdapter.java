@@ -19,26 +19,37 @@ public class EarthquakeAdapter extends
         RecyclerView.Adapter<EarthquakeAdapter.ViewHolder> {
 
     private List<EarthquakeClass> mEarthquake;
+    private AdapterClickListener mAdapterClickListener;
 
-    public EarthquakeAdapter(List<EarthquakeClass> earthquakes){
+    public EarthquakeAdapter(List<EarthquakeClass> earthquakes, AdapterClickListener adapterClickListener){
         mEarthquake = earthquakes;
+        mAdapterClickListener = adapterClickListener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView textLocation;
         private TextView textStrength;
         private Button infoBtn;
         private View earthquakeItemView;
+        AdapterClickListener adapterClickListener;
 
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView, AdapterClickListener adapterClickListener){
             super(itemView);
 
             textLocation = itemView.findViewById(R.id.textLocation);
             textStrength = itemView.findViewById(R.id.textStrength);
             infoBtn = itemView.findViewById(R.id.infoBtn);
             earthquakeItemView = itemView.findViewById(R.id.earthquake_itemView);
+            this.adapterClickListener = adapterClickListener;
+            infoBtn.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            adapterClickListener.onAdapterClickListener(itemView, getAdapterPosition());
         }
     }
     @NonNull
@@ -49,7 +60,7 @@ public class EarthquakeAdapter extends
 
         View earthquakeView = inflater.inflate(earthquake_item,  parent, false);
 
-        return new ViewHolder(earthquakeView);
+        return new ViewHolder(earthquakeView, mAdapterClickListener);
     }
 
     @SuppressLint("SetTextI18n")
@@ -83,5 +94,10 @@ public class EarthquakeAdapter extends
     @Override
     public int getItemCount() {
         return mEarthquake.size();
+    }
+
+    // parent activity will implement this method to respond to click events
+    public interface AdapterClickListener {
+        void onAdapterClickListener(View view, int position);
     }
 }
