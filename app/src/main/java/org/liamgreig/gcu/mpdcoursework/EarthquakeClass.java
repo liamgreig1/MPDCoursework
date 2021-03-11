@@ -1,6 +1,9 @@
 package org.liamgreig.gcu.mpdcoursework;
 
-public class EarthquakeClass {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class EarthquakeClass implements Parcelable {
 
     private String title;
     private String description;
@@ -36,6 +39,31 @@ public class EarthquakeClass {
         strength = aStrength;
         location = aLocation;
     }
+
+    protected EarthquakeClass(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+        link = in.readString();
+        pubDate = in.readString();
+        category = in.readString();
+        geoLat = in.readString();
+        geoLong = in.readString();
+        strength = in.readString();
+        location = in.readString();
+        depth = in.readString();
+    }
+
+    public static final Creator<EarthquakeClass> CREATOR = new Creator<EarthquakeClass>() {
+        @Override
+        public EarthquakeClass createFromParcel(Parcel in) {
+            return new EarthquakeClass(in);
+        }
+
+        @Override
+        public EarthquakeClass[] newArray(int size) {
+            return new EarthquakeClass[size];
+        }
+    };
 
     public String getDepth() {
         return depth;
@@ -156,5 +184,24 @@ public class EarthquakeClass {
                 "strength=" + strength + '\n' +
                 "location=" + location + '\n' +
                 '}' + '\n';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(link);
+        dest.writeString(pubDate);
+        dest.writeString(category);
+        dest.writeString(geoLat);
+        dest.writeString(geoLong);
+        dest.writeString(strength);
+        dest.writeString(location);
+        dest.writeString(depth);
     }
 }

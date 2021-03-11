@@ -5,4 +5,5 @@
     <string name="contains_british_geological_survey_materials_nerc_2019">Contains British Geological Survey materials ©NERC 2019</string>
     <string name="raw_data_is_displayed_here">Raw Data is Displayed here</string>
     <string name="info">Info</string>
+    <string name="open_map">Open Map</string>
 </resources>

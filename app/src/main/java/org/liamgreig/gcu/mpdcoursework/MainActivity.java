@@ -1,6 +1,9 @@
 package org.liamgreig.gcu.mpdcoursework;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +12,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -34,10 +38,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
 
     private RecyclerView rvEarthquake;
     private EarthquakeAdapter adapter;
+    private Button mapBtn;
     private String result;
     private final String url1 = "";
     private final String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     ArrayList<EarthquakeClass> earthquakeList = new ArrayList<>();
+    MapsFragment fragment = new MapsFragment();
     Context mainContext = this;
     EarthquakeAdapter.AdapterClickListener adapterContext = this;
 
@@ -50,15 +56,26 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
 
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
+        mapBtn = findViewById(R.id.btnMap);
         rvEarthquake = findViewById(R.id.rvEarthquake);
         periodicUpdate.run();
+        mapBtn.setOnClickListener(this);
     }
-
-
 
     @Override
     public void onClick(View v) {
         Log.e("MyTag", "in onClick");
+        if(v == mapBtn){
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.add(android.R.id.content,fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("list", earthquakeList);
+            fragment.setArguments(bundle);
+
+        }
         Log.e("MyTag", "after startProgress");
     }
 

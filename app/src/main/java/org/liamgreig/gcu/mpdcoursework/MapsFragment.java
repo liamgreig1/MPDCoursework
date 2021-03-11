@@ -13,8 +13,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 public class MapsFragment extends Fragment {
 
@@ -31,11 +35,29 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            ArrayList<EarthquakeClass> earthquakeList = getArguments().getParcelableArrayList("list");
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(55.860916,-4.251433)));
+            for (EarthquakeClass item : earthquakeList){
+                LatLng latlong = new LatLng(Double.parseDouble(item.getGeoLat()), Double.parseDouble(item.getGeoLong()));
+                googleMap.addMarker(new MarkerOptions()
+                        .position(latlong)
+                        .title(item.getLocation()).icon(getColour(Double.parseDouble(item.getStrength()))));
+            }
         }
     };
+
+    private BitmapDescriptor getColour(double strength){
+        if (strength<=0.9){
+            return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
+        }
+        if(strength>=1 && strength<=2){
+            return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW);
+        }
+        if(strength>2){
+            return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
+        }
+        return null;
+    }
 
     @Nullable
     @Override
