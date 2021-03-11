@@ -11,6 +11,7 @@ public class EarthquakeClass {
     private String geoLong;
     private String strength;
     private String location;
+    private String depth;
 
     public EarthquakeClass(){
         title = "";
@@ -36,6 +37,14 @@ public class EarthquakeClass {
         location = aLocation;
     }
 
+    public String getDepth() {
+        return depth;
+    }
+
+    public void setDepth(String depth) {
+        this.depth = depth;
+    }
+
     public String getStrength() {
         return strength;
     }
@@ -49,9 +58,6 @@ public class EarthquakeClass {
     }
 
     public void setLocation(String location) {
-
-        if(location.length() > 10)
-
         this.location = location;
     }
 
@@ -90,6 +96,11 @@ public class EarthquakeClass {
         String[] locArray = loc.split("\\s*:\\s*");
         String locName = locArray[1];
         setLocation(locName);
+
+        String depth = descriptionArray[3];
+        String[] depthArray = depth.split("\\s*:\\s*");
+        String depthName = depthArray[1];
+        setDepth(depthName);
     }
 
     public String getLink() {

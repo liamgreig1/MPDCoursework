@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -74,7 +75,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     @Override
     public void onAdapterClickListener(View view, int position) {
         EarthquakeClass earthquakeClass = earthquakeList.get(position);
-        Toast.makeText(MainActivity.this, "You Clicked: " + earthquakeClass.getLocation(), Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainContext);
+        builder.setMessage("More Info !\nLocation: " + earthquakeClass.getLocation() +
+                "\nStrength: " + earthquakeClass.getStrength() +
+                "\nLat/Long: " + earthquakeClass.getGeoLat() + "/" + earthquakeClass.getGeoLong() +
+                "\nCategory: " + earthquakeClass.getCategory() +
+                "\nDepth: " + earthquakeClass.getDepth() +
+                "\nDate of Earthquake: " + earthquakeClass.getPubDate()
+        );
+        builder.setCancelable(false);
+        builder.setNegativeButton("Close", ((dialog, which) -> {
+            dialog.cancel();
+        }));
+        AlertDialog alert = builder.create();
+        alert.show();
+//        Toast.makeText(MainActivity.this, "You Clicked: " + earthquakeClass.getLocation(), Toast.LENGTH_SHORT).show();
     }
 
 
