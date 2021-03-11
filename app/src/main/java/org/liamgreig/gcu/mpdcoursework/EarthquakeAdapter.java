@@ -68,7 +68,7 @@ public class EarthquakeAdapter extends
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         EarthquakeClass earthquake = mEarthquake.get(position);
-        double strength = Double.parseDouble(earthquake.getStrength());
+        double strength = earthquake.getStrength();
         Button infoButton = holder.infoBtn;
         View earthItem = holder.earthquakeItemView;
         if (strength<=0.9){

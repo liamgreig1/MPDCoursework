@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
                 "\nStrength: " + earthquakeClass.getStrength() +
                 "\nLat/Long: " + earthquakeClass.getGeoLat() + "/" + earthquakeClass.getGeoLong() +
                 "\nCategory: " + earthquakeClass.getCategory() +
-                "\nDepth: " + earthquakeClass.getDepth() +
+                "\nDepth: " + earthquakeClass.getDepth() + " km" +
                 "\nDate of Earthquake: " + earthquakeClass.getPubDate()
         );
         builder.setCancelable(false);

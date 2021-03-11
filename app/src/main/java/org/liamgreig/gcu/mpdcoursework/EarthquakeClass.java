@@ -10,11 +10,11 @@ public class EarthquakeClass implements Parcelable {
     private String link;
     private String pubDate;
     private String category;
-    private String geoLat;
-    private String geoLong;
-    private String strength;
+    private double geoLat;
+    private double geoLong;
+    private double strength;
     private String location;
-    private String depth;
+    private int depth;
 
     public EarthquakeClass(){
         title = "";
@@ -22,13 +22,13 @@ public class EarthquakeClass implements Parcelable {
         link = "";
         pubDate = "";
         category = "";
-        geoLat = "";
-        geoLong = "";
-        strength = "";
+        geoLat = 0;
+        geoLong = 0;
+        strength = 0;
         location = "";
     }
 
-    public EarthquakeClass(String aTitle, String aDescription, String aLink, String aPubDate, String aCategory, String aGeoLat, String aGeoLong, String aStrength, String aLocation){
+    public EarthquakeClass(String aTitle, String aDescription, String aLink, String aPubDate, String aCategory, double aGeoLat, double aGeoLong, double aStrength, String aLocation){
         title = aTitle;
         description = aDescription;
         link = aLink;
@@ -46,11 +46,11 @@ public class EarthquakeClass implements Parcelable {
         link = in.readString();
         pubDate = in.readString();
         category = in.readString();
-        geoLat = in.readString();
-        geoLong = in.readString();
-        strength = in.readString();
+        geoLat = in.readDouble();
+        geoLong = in.readDouble();
+        strength = in.readDouble();
         location = in.readString();
-        depth = in.readString();
+        depth = in.readInt();
     }
 
     public static final Creator<EarthquakeClass> CREATOR = new Creator<EarthquakeClass>() {
@@ -65,19 +65,19 @@ public class EarthquakeClass implements Parcelable {
         }
     };
 
-    public String getDepth() {
+    public int getDepth() {
         return depth;
     }
 
-    public void setDepth(String depth) {
+    public void setDepth(int depth) {
         this.depth = depth;
     }
 
-    public String getStrength() {
+    public double getStrength() {
         return strength;
     }
 
-    public void setStrength(String strength) {
+    public void setStrength(double strength) {
         this.strength = strength;
     }
 
@@ -110,14 +110,14 @@ public class EarthquakeClass implements Parcelable {
         String [] longlatArray = longlat.split("\\s*:\\s*");
         String longlatNum = longlatArray[1];
         String [] longlatNumArray = longlatNum.split("\\s*,\\s*");
-        setGeoLat(longlatNumArray[0]);
-        setGeoLong(longlatNumArray[1]);
+        setGeoLat(Double.parseDouble(longlatNumArray[0]));
+        setGeoLong(Double.parseDouble(longlatNumArray[1]));
 
         //To get strength
         String mag = descriptionArray[4];
         String [] magArray = mag.split("\\s*:\\s*");
         String strength = magArray[1];
-        setStrength(strength);
+        setStrength(Double.parseDouble(strength));
 
         //To get Location Name
         String loc = descriptionArray[1];
@@ -128,7 +128,9 @@ public class EarthquakeClass implements Parcelable {
         String depth = descriptionArray[3];
         String[] depthArray = depth.split("\\s*:\\s*");
         String depthName = depthArray[1];
-        setDepth(depthName);
+        String[] depthNumArray = depthName.split("\\s* \\s*");
+        String depthNum = depthNumArray[0];
+        setDepth(Integer.parseInt(depthNum));
     }
 
     public String getLink() {
@@ -155,19 +157,19 @@ public class EarthquakeClass implements Parcelable {
         this.category = category;
     }
 
-    public String getGeoLat() {
+    public double getGeoLat() {
         return geoLat;
     }
 
-    public void setGeoLat(String geoLat) {
+    public void setGeoLat(double geoLat) {
         this.geoLat = geoLat;
     }
 
-    public String getGeoLong() {
+    public double getGeoLong() {
         return geoLong;
     }
 
-    public void setGeoLong(String geoLong) {
+    public void setGeoLong(double geoLong) {
         this.geoLong = geoLong;
     }
 
@@ -198,10 +200,10 @@ public class EarthquakeClass implements Parcelable {
         dest.writeString(link);
         dest.writeString(pubDate);
         dest.writeString(category);
-        dest.writeString(geoLat);
-        dest.writeString(geoLong);
-        dest.writeString(strength);
+        dest.writeDouble(geoLat);
+        dest.writeDouble(geoLong);
+        dest.writeDouble(strength);
         dest.writeString(location);
-        dest.writeString(depth);
+        dest.writeInt(depth);
     }
 }

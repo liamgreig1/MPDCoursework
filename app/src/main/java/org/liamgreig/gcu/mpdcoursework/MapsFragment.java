@@ -38,10 +38,10 @@ public class MapsFragment extends Fragment {
             ArrayList<EarthquakeClass> earthquakeList = getArguments().getParcelableArrayList("list");
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(55.860916,-4.251433)));
             for (EarthquakeClass item : earthquakeList){
-                LatLng latlong = new LatLng(Double.parseDouble(item.getGeoLat()), Double.parseDouble(item.getGeoLong()));
+                LatLng latlong = new LatLng(item.getGeoLat(), item.getGeoLong());
                 googleMap.addMarker(new MarkerOptions()
                         .position(latlong)
-                        .title(item.getLocation()).icon(getColour(Double.parseDouble(item.getStrength()))));
+                        .title(item.getLocation()).icon(getColour(item.getStrength())));
             }
         }
     };
