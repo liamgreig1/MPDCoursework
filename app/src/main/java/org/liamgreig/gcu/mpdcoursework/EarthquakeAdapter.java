@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
 import java.util.List;
 import static org.liamgreig.gcu.mpdcoursework.R.layout.earthquake_item;
 
@@ -49,7 +50,11 @@ public class EarthquakeAdapter extends
 
         @Override
         public void onClick(View v) {
-            adapterClickListener.onAdapterClickListener(itemView, getAdapterPosition());
+            try {
+                adapterClickListener.onAdapterClickListener(itemView, getAdapterPosition());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
     @NonNull
@@ -98,6 +103,6 @@ public class EarthquakeAdapter extends
 
     // parent activity will implement this method to respond to click events
     public interface AdapterClickListener {
-        void onAdapterClickListener(View view, int position);
+        void onAdapterClickListener(View view, int position) throws ParseException;
     }
 }

@@ -7,17 +7,6 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/salutation"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:text="@string/liam_greig_s1635449"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/acknowledgement"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/acknowledgement"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/open_map"
-        app:layout_constraintBottom_toTopOf="@+id/salutation"
+        app:layout_constraintBottom_toTopOf="@+id/acknowledgement"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -45,5 +34,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/showFilterBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter"
+        app:layout_constraintBottom_toTopOf="@+id/acknowledgement"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvEarthquake" />
+
+    <Button
+        android:id="@+id/listBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_list"
+        app:layout_constraintBottom_toTopOf="@+id/acknowledgement"
+        app:layout_constraintEnd_toStartOf="@+id/btnMap"
+        app:layout_constraintStart_toEndOf="@+id/showFilterBtn"
+        app:layout_constraintTop_toBottomOf="@+id/rvEarthquake" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

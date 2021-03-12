@@ -1,7 +1,12 @@
 package org.liamgreig.gcu.mpdcoursework;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EarthquakeClass implements Parcelable {
 
@@ -141,8 +146,9 @@ public class EarthquakeClass implements Parcelable {
         this.link = link;
     }
 
-    public String getPubDate() {
-        return pubDate;
+    public Date getPubDate() throws ParseException {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter=new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
+        return formatter.parse(pubDate);
     }
 
     public void setPubDate(String pubDate) {

@@ -1,9 +1,21 @@
 <resources>
-    <string name="app_name">MPDCoursework</string>
+    <string name="app_name">Liam Greig - S1635449</string>
     <string name="liam_greig_s1635449">Liam Greig - S1635449</string>
     <string name="press_to_get_data">Press to get data</string>
     <string name="contains_british_geological_survey_materials_nerc_2019">Contains British Geological Survey materials ©NERC 2019</string>
     <string name="raw_data_is_displayed_here">Raw Data is Displayed here</string>
     <string name="info">Info</string>
     <string name="open_map">Open Map</string>
+    <string name="filter_by_date">Filter Earthquake</string>
+    <string name="show_list">Show List</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="most_northern">Furthest North</string>
+    <string name="furthest_south">Furthest South</string>
+    <string name="furthest_east">Furthest East</string>
+    <string name="furthest_west">Furthest West</string>
+    <string name="deepest_earthquake">Deepest Earthquake</string>
+    <string name="shallowest_earthquake">Shallowest Earthquake</string>
+    <string name="greatest_magnitude">Greatest Magnitude</string>
+    <string name="filter">Filter</string>
 </resources>

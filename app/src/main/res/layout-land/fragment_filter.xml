@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FilterFragment">
+
+    <Button
+        android:id="@+id/filterBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_by_date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/endDate"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/startDate"
+        app:layout_constraintTop_toBottomOf="@+id/endDate"
+        app:layout_constraintVertical_bias="0.207" />
+
+    <EditText
+        android:id="@+id/startDate"
+        android:layout_width="195dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/start_date"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="@+id/endDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/endDate"
+        android:layout_width="195dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="@string/end_date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toEndOf="@+id/startDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="184dp"
+        android:layout_height="245dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/startDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbNorth"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/most_northern" />
+
+        <RadioButton
+            android:id="@+id/rbSouth"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/furthest_south" />
+
+        <RadioButton
+            android:id="@+id/rbEast"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/furthest_east" />
+
+        <RadioButton
+            android:id="@+id/rbWest"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/furthest_west" />
+
+        <RadioButton
+            android:id="@+id/rbDeepest"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/deepest_earthquake" />
+
+        <RadioButton
+            android:id="@+id/rbShallow"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/shallowest_earthquake" />
+
+        <RadioButton
+            android:id="@+id/rbMag"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/greatest_magnitude" />
+
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

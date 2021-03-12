@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Timer;
@@ -39,15 +41,29 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     private RecyclerView rvEarthquake;
     private EarthquakeAdapter adapter;
     private Button mapBtn;
+    private Button filterBtn;
+    private Button listBtn;
     private String result;
     private final String url1 = "";
     private final String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     ArrayList<EarthquakeClass> earthquakeList = new ArrayList<>();
     MapsFragment fragment = new MapsFragment();
+    FilterFragment filterFragment = new FilterFragment();
     Context mainContext = this;
     EarthquakeAdapter.AdapterClickListener adapterContext = this;
 
     Handler handler = new Handler();
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            Toast.makeText(MainActivity.this, "Landscape Mode", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Toast.makeText(MainActivity.this, "Portrait Mode", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,24 +73,44 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         Log.e("MyTag", "in onCreate");
         // Set up the raw links to the graphical components
         mapBtn = findViewById(R.id.btnMap);
+        filterBtn = findViewById(R.id.showFilterBtn);
+        listBtn = findViewById(R.id.listBtn);
         rvEarthquake = findViewById(R.id.rvEarthquake);
         periodicUpdate.run();
         mapBtn.setOnClickListener(this);
+        filterBtn.setOnClickListener(this);
+        listBtn.setOnClickListener(this);
+        listBtn.setEnabled(false);
     }
 
     @Override
     public void onClick(View v) {
         Log.e("MyTag", "in onClick");
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("list", earthquakeList);
+        fragment.setArguments(bundle);
+        filterFragment.setArguments(bundle);
         if(v == mapBtn){
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
             transaction.add(android.R.id.content,fragment);
             transaction.addToBackStack(null);
             transaction.commit();
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("list", earthquakeList);
-            fragment.setArguments(bundle);
-
+        }
+        if(v == filterBtn){
+            transaction.add(android.R.id.content,filterFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            rvEarthquake.setVisibility(View.INVISIBLE);
+            filterBtn.setEnabled(false);
+            listBtn.setEnabled(true);
+        }
+        if(v == listBtn){
+            transaction.remove(filterFragment).commit();
+            filterFragment.onDestroyView();
+            rvEarthquake.setVisibility(View.VISIBLE);
+            filterBtn.setEnabled(true);
+            listBtn.setEnabled(false);
         }
         Log.e("MyTag", "after startProgress");
     }
@@ -90,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
     };
 
     @Override
-    public void onAdapterClickListener(View view, int position) {
+    public void onAdapterClickListener(View view, int position) throws ParseException {
         EarthquakeClass earthquakeClass = earthquakeList.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(mainContext);
         builder.setMessage("More Info !\nLocation: " + earthquakeClass.getLocation() +
@@ -149,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
-            Toast.makeText(MainActivity.this,"Invoke onPostExecute()", Toast.LENGTH_SHORT).show();
             rvEarthquake.setLayoutManager(new LinearLayoutManager(mainContext));
             adapter = new EarthquakeAdapter(earthquakeList,adapterContext);
             rvEarthquake.setAdapter(adapter);
