@@ -1,3 +1,5 @@
+//Liam Greig - S1635449
+//Mobile Platform Development Coursework 20/21
 package org.liamgreig.gcu.mpdcoursework;
 
 import androidx.appcompat.app.AppCompatActivity;
