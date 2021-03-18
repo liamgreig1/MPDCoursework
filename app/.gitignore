@@ -1,2 +1,5 @@
-/build
+/build/generated
+/build/intermediates
+/build/outputs/logs
+/build/tmp
 /src/debug/res/values/

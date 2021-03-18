@@ -189,6 +189,8 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         ArrayList<EarthquakeClass> earthquakeList = getArguments().getParcelableArrayList("list");
         if(dateStart == null || dateEnd == null){
             Toast.makeText(this.getContext(), "Please select a date range", Toast.LENGTH_SHORT).show();
+        }else if(dateStart.equals(dateEnd)) {
+            Toast.makeText(this.getContext(), "Please Separate dates", Toast.LENGTH_SHORT).show();
         }else{
             for (EarthquakeClass item: earthquakeList){
                 if (item.getPubDate().after(dateStart) && item.getPubDate().before(dateEnd)){
@@ -214,7 +216,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getMostNorth: " + maxItem);
         if (maxItem != null) {
-            displayDialog(maxItem);
+            displayDialog(maxItem, "Most Northern");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
@@ -231,7 +233,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getMostSouth: " + minItem);
         if (minItem != null) {
-            displayDialog(minItem);
+            displayDialog(minItem, "Most Southern");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
@@ -248,7 +250,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getMostEast: " + maxItem);
         if (maxItem != null) {
-            displayDialog(maxItem);
+            displayDialog(maxItem, "Most Eastern");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
@@ -264,7 +266,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getMostWest: " + minItem);
         if (minItem != null) {
-            displayDialog(minItem);
+            displayDialog(minItem, "Most Western");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
@@ -281,7 +283,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getMostMag: " + maxItem);
         if (maxItem != null) {
-            displayDialog(maxItem);
+            displayDialog(maxItem, "Greatest Magnitude");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
@@ -298,7 +300,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getMostDepth: " + maxItem);
         if (maxItem != null) {
-            displayDialog(maxItem);
+            displayDialog(maxItem, "Deepest");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
@@ -315,15 +317,15 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         Log.d("TAG", "getShallowDepth: " + minItem);
         if (minItem != null) {
-            displayDialog(minItem);
+            displayDialog(minItem, "Shallowest");
         }else{
             Toast.makeText(this.getContext(), "No Earthquakes between those dates", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void displayDialog(EarthquakeClass item) throws ParseException {
+    private void displayDialog(EarthquakeClass item, String filter) throws ParseException {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-        builder.setMessage("Most Northern Earthquake\nLocation: " + item.getLocation() +
+        builder.setMessage(filter + " Earthquake\nLocation: " + item.getLocation() +
                 "\nStrength: " + item.getStrength() +
                 "\nLat/Long: " + item.getGeoLat() + "/" + item.getGeoLong() +
                 "\nCategory: " + item.getCategory() +
